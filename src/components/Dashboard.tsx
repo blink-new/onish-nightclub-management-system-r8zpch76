@@ -4,6 +4,7 @@ import { Button } from './ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import { Badge } from './ui/badge'
 import { useToast } from '../hooks/use-toast'
+import Reports from './Reports'
 import { 
   LayoutDashboard, 
   Users, 
@@ -71,7 +72,6 @@ export default function Dashboard({ user }: DashboardProps) {
       if (existingUsers.length === 0) {
         // Create new user profile
         const newUser = await blink.db.users.create({
-          id: user.id,
           email: user.email,
           name: user.name || user.email.split('@')[0],
           role: 'cashier' // Default role
@@ -752,10 +752,7 @@ export default function Dashboard({ user }: DashboardProps) {
         )}
 
         {activeTab === 'reports' && canAccess('manager') && (
-          <div className="text-white">
-            <h1 className="text-3xl font-bold mb-6">Reports & Analytics</h1>
-            <p className="text-gray-400">Reports features coming soon...</p>
-          </div>
+          <Reports user={user} />
         )}
 
         {activeTab === 'settings' && canAccess('admin') && (
